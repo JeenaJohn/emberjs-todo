@@ -1,53 +1,58 @@
 {{outlet}}
 
 
-    <section id="todoapp">
-      <header id="header">
-        <h1>todos</h1>
-        <input type="text" id="new-todo" placeholder="What needs to be done?" />
-      </header>
+<section id="todoapp">
+  <header id="header">
+    <h1>todos</h1>
+    {{input type="text" id="new-todo" placeholder="What needs to be done?" value = newTodo action="createTodo" }}
+  </header>
 
-      <section id="main">
-        <ul id="todo-list">
-          <li class="completed">
-            <input type="checkbox" class="toggle">
-            <label>Learn Ember.js</label><button class="destroy"></button>
-          </li>
-          <li>
-            <input type="checkbox" class="toggle">
-            <label>...</label><button class="destroy"></button>
-          </li>
-          <li>
-            <input type="checkbox" class="toggle">
-            <label>Profit!</label><button class="destroy"></button>
-          </li>
-        </ul>
+  <section id="main">
+    <ul id="todo-list">
+      {{#each model as |todo|}}
 
-        <input type="checkbox" id="toggle-all">
-      </section>
+        <!--      <li class="completed"> -->
+        {{#if todo.complete}}
 
-      <footer id="footer">
-        <span id="todo-count">
-          <strong>2</strong> todos left
-        </span>
-        <ul id="filters">
-          <li>
-            <a href="all" class="selected">All</a>
-          </li>
-          <li>
-            <a href="active">Active</a>
-          </li>
-          <li>
-            <a href="completed">Completed</a>
-          </li>
-        </ul>
+          <input type="checkbox" checked= {{todo.complete}} class="toggle">
+          <label>{{todo.text}}</label>
+          <button class="destroy"></button>
+        {{else}}
+          <input class="edit" type="text" value= {{todo.text}}>
 
-        <button id="clear-completed">
-          Clear completed (1)
-        </button>
-      </footer>
-    </section>
+        {{/if}}
+        <!--      </li> -->
 
-    <footer id="info">
-      <p>Double-click to edit a todo</p>
-    </footer>
+      {{/each}}
+
+    </ul>
+
+
+
+    <input type="checkbox" id="toggle-all">
+  </section>
+
+  <!-- This footer should hidden by default and shown when there are todos -->
+  <footer id="footer">
+
+    <!--				<span id="todo-count"><strong>1</strong> item left</span> -->
+
+    <ul id="filters">
+      <li>
+        <a class="All" {{action "filter" 'all'}}>All</a>
+      </li>
+      <li>
+        <a {{action "filter" 'active'}}>Active</a>
+      </li>
+      <li>
+        <a {{action "filter" 'complete'}}>Completed</a>
+      </li>
+    </ul>
+
+    <button id="clear-completed">Clear completed</button>
+  </footer>
+
+  <footer id="info">
+    <p>Double-click to edit a todo</p>
+  </footer>
+</section>
