@@ -26,7 +26,6 @@ export default Ember.Controller.extend({
 
       todo.set('isEditing', true);
 
-
     },
 
     editTodo() {
@@ -36,13 +35,17 @@ export default Ember.Controller.extend({
     },
 
     deleteTodo(todo) {
-      
+
       todo.destroyRecord();
 
+    },
+
+    completeTodo(todo) {
+
+      todo.set('complete', true);
+      todo.save();
+
     }
-
-
-
-
   }
+
 });
