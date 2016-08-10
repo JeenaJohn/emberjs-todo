@@ -45,6 +45,15 @@ export default Ember.Controller.extend({
       todo.set('complete', true);
       todo.save();
 
+    },
+
+    completeAll() {
+
+      this.get('model').forEach((todo) =>
+        { todo.set('complete', true);
+        todo.save(); }
+      );
+
     }
   }
 
