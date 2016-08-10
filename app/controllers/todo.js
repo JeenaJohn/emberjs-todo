@@ -15,10 +15,34 @@ export default Ember.Controller.extend({
         text: newTodo,
         complete: false
       });
+      todo.save();
 
       // Clear the "New Todo" text field
       this.set('newTodo', '');
+
+    },
+
+    setEditMode(todo) {
+
+      todo.set('isEditing', true);
+
+
+    },
+
+    editTodo() {
+      var todo = this.get('model');
       todo.save();
+
+    },
+
+    deleteTodo(todo) {
+      
+      todo.destroyRecord();
+
     }
+
+
+
+
   }
 });
