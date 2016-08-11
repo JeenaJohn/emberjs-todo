@@ -2,6 +2,21 @@ import Ember from 'ember';
 
 export default Ember.Controller.extend({
 
+  queryParams: ['option'],
+  option: 'all',
+
+  viewModel: Ember.computed('model', 'option', function() {
+    switch (this.get('option')) {
+      case 'complete':
+        return this.get('model').filterBy('complete', true);
+
+      case 'active':
+        return this.get('model').filterBy('complete', false);
+      default:
+        return this.get('model');
+    }
+  }),
+
   actions: {
     createTodo() {
       var newTodo = this.get('newTodo');
@@ -49,11 +64,15 @@ export default Ember.Controller.extend({
 
     completeAll() {
 
-      this.get('model').forEach((todo) =>
-        { todo.set('complete', true);
-        todo.save(); }
-      );
+      this.get('model').forEach((todo) => {
+        todo.set('complete', true);
+        todo.save();
+      });
 
+    },
+
+    filter(option) {
+      this.set('option', option);
     }
   }
 
