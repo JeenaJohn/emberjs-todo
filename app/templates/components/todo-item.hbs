@@ -1,0 +1,15 @@
+{{yield}}
+<li class="{{todo.completedClass}} {{todo.editingClass}}">
+
+  {{#if todo.isEditing}}
+
+    <input class="edit" type="text" value={{todo.title}} onblur={{action "editTodoItem" value="target.value"}}>
+
+  {{else}}
+
+    <input type="checkbox" checked= {{todo.complete}} class="toggle" {{action "completeTodoItem"}}>
+    <label {{action "setEditModeItem"  on="click"}}>{{todo.text}}</label>
+    <button class="destroy" {{action "deleteTodoItem"}}></button>
+
+  {{/if}}
+</li>

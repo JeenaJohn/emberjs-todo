@@ -43,8 +43,12 @@ export default Ember.Controller.extend({
 
     },
 
-    editTodo() {
-      var todo = this.get('model');
+    editTodo(value, todo) {
+            var text = todo.get('text');
+      console.log("in edittodo");
+     console.log('value: ' + value);
+      console.log(text);
+      todo.set('text',value);
       todo.save();
 
     },
