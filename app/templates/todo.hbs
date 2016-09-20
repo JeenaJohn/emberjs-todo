@@ -3,33 +3,23 @@
 
 <section id="todoapp">
   <header id="header">
-    <h1>todos</h1> {{input type="text" id="new-todo" placeholder="What needs to be done?" value=newTodo action="createTodo"}}
+    <h1>todos</h1><input type="text" id="new-todo" placeholder="What needs to be done?" value={{newTodo}} onblur={{action "createTodo" value="target.value"}}>
   </header>
 
   <section id="main">
-
     <input id="toggle-all" type="checkbox" checked {{action "completeAll"}}>
     <label for="toggle-all">Mark all as complete</label>
 
     <ul id="todo-list">
       {{#each viewModel as |todo|}}
         <!-- List items should get the class `editing` when editing and `completed` when marked as completed -->
-
         {{todo-item todo=todo editTodo="editTodo" setEditMode="setEditMode"}}
-
-
       {{/each}}
-
     </ul>
-
-
   </section>
 
   <!-- This footer should hidden by default and shown when there are todos -->
   <footer id="footer">
-
-    <!--				<span id="todo-count"><strong>1</strong> item left</span> -->
-
     <ul id="filters">
       <li>
         <a class="All" {{action "filter" 'all'}}>All</a>
@@ -41,8 +31,6 @@
         <a {{action "filter" 'complete'}}>Completed</a>
       </li>
     </ul>
-
-    <!--  <button id="clear-completed">Clear completed</button> -->
   </footer>
 
   <footer id="info">

@@ -8,6 +8,12 @@ export default Ember.Component.extend({
     },
     setEditModeItem() {
       this.sendAction('setEditMode', this.get('todo'));
+    },
+    deleteTodoItem() {
+      this.sendAction('deleteTodo', this.get('todo'));
+    },
+    completeTodoItem(todo) {
+      this.sendAction('completeTodo', todo);
     }
   }
 });

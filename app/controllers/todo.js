@@ -4,12 +4,12 @@ export default Ember.Controller.extend({
 
   queryParams: ['option'],
   option: 'all',
+  newTodo: '',
 
   viewModel: Ember.computed('model', 'option', function() {
     switch (this.get('option')) {
       case 'complete':
         return this.get('model').filterBy('complete', true);
-
       case 'active':
         return this.get('model').filterBy('complete', false);
       default:
@@ -18,52 +18,48 @@ export default Ember.Controller.extend({
   }),
 
   actions: {
-    createTodo() {
-      var newTodo = this.get('newTodo');
+    createTodo(value) {
+      //   var newTodo = this.get('newTodo');
 
-      if (!newTodo.trim()) {
+      if (!value.trim()) {
         return;
       }
 
       // Create the new Todo model
       var todo = this.store.createRecord('todo', {
-        text: newTodo,
+        text: value,
         complete: false
       });
       todo.save();
-
+      console.log('save created todo' + this.get('newTodo'));
       // Clear the "New Todo" text field
-      this.set('newTodo', '');
+      this.set('newTodo', ' ');
+      //  todo.reload();
 
     },
 
     setEditMode(todo) {
-
       todo.set('isEditing', true);
-
     },
 
     editTodo(value, todo) {
-            var text = todo.get('text');
+      var text = todo.get('text');
       console.log("in edittodo");
-     console.log('value: ' + value);
+      console.log('value: ' + value);
       console.log(text);
-      todo.set('text',value);
+      todo.set('text', value);
       todo.save();
-
+      todo.set('isEditing', false);
     },
 
     deleteTodo(todo) {
-
       todo.destroyRecord();
-
     },
 
     completeTodo(todo) {
-
+      console.log("in completetodo");
       todo.set('complete', true);
       todo.save();
-
     },
 
     completeAll() {
