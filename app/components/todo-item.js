@@ -1,7 +1,7 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
-
+// added comment
   actions: {
     editTodoItem(value) {
       this.sendAction('editTodo', value, this.get('todo'));
